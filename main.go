@@ -20,8 +20,8 @@ func main() {
 			fmt.Println("  --help                 Show this help message")
 			fmt.Println("  configure-git          Configure Git settings")
 			fmt.Println("  generate-ssh-key       Generate a new SSH key")
-			fmt.Println("  install                Install common CLI tools")
-			fmt.Println("  uninstall              Uninstall CLI tools")
+			fmt.Println("  install [tool]         Install a specific CLI tool (e.g., curl, ansible, terraform)")
+			fmt.Println("  uninstall [tool]       Uninstall a specific CLI tool (e.g., curl, ansible, terraform)")
 			os.Exit(0)
 		case "configure-git":
 			git.SetupGit()
@@ -30,10 +30,20 @@ func main() {
 			ssh.GenerateKey()
 			os.Exit(0)
 		case "install":
-			tools.Install()
+			if len(os.Args) > 2 {
+				tools.InstallSpecific(os.Args[2])
+			} else {
+				fmt.Println("Please specify a tool to install.")
+				os.Exit(1)
+			}
 			os.Exit(0)
 		case "uninstall":
-			tools.Uninstall()
+			if len(os.Args) > 2 {
+				tools.UninstallSpecific(os.Args[2])
+			} else {
+				fmt.Println("Please specify a tool to uninstall.")
+				os.Exit(1)
+			}
 			os.Exit(0)
 		default:
 			fmt.Printf("Unknown option: %s\n", os.Args[1])
