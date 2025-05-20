@@ -39,6 +39,15 @@ jobs:
           fi
           chmod +x dist/ultimate-setup-linux-amd64
 
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
       - name: Test CLI features
         run: |
           chmod +x dist/ultimate-setup-linux-amd64
