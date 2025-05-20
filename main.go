@@ -20,8 +20,8 @@ func main() {
 			fmt.Println("  --help                 Show this help message")
 			fmt.Println("  configure-git          Configure Git settings")
 			fmt.Println("  generate-ssh-key       Generate a new SSH key")
-			fmt.Println("  install-cli-tools      Install common CLI tools")
-			fmt.Println("  uninstall-cli-tools    Uninstall CLI tools")
+			fmt.Println("  install                Install common CLI tools")
+			fmt.Println("  uninstall              Uninstall CLI tools")
 			os.Exit(0)
 		case "configure-git":
 			git.SetupGit()
@@ -29,10 +29,10 @@ func main() {
 		case "generate-ssh-key":
 			ssh.GenerateKey()
 			os.Exit(0)
-		case "install-cli-tools":
+		case "install":
 			tools.Install()
 			os.Exit(0)
-		case "uninstall-cli-tools":
+		case "uninstall":
 			tools.Uninstall()
 			os.Exit(0)
 		default:
