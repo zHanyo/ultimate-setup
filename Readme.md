@@ -154,22 +154,20 @@ To create a binary executable for your system, follow these steps:
 
 To build the binary for other platforms, use the `GOOS` and `GOARCH` environment variables:
 
-- **For Windows**:
-  ```bash
-  GOOS=windows GOARCH=amd64 go build -o ultimate-setup.exe
-  ```
-
 - **For Linux**:
   ```bash
   GOOS=linux GOARCH=amd64 go build -o ultimate-setup
   ```
 
-- **For macOS**:
-  ```bash
-  GOOS=darwin GOARCH=amd64 go build -o ultimate-setup
-  ```
-
 The resulting binary can be distributed and run on the target platform without requiring Go to be installed.
+
+## CI/CD Workflows
+
+### Release Workflow
+The release workflow is triggered on every push to a tag matching the pattern `v*`. It builds the project, runs tests, and creates a GitHub release with the compiled binary.
+
+### Build and Test Workflow
+The build-and-test workflow is triggered on every push to the `main` branch. It builds the project and runs tests to ensure code quality before merging changes into the main branch.
 
 ## Contributing
 
