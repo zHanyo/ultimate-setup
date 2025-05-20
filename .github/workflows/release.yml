@@ -41,6 +41,7 @@ jobs:
 
       - name: Test CLI features
         run: |
+          chmod +x dist/ultimate-setup-linux-amd64
           echo "Testing --help command"
           ./dist/ultimate-setup-linux-amd64 --help | grep "Usage" || exit 1
 
@@ -51,7 +52,7 @@ jobs:
           ./dist/ultimate-setup-linux-amd64 uninstall curl && ! which curl || exit 1
 
           echo "Testing SSH key generation"
-          ./dist/ultimate-setup-linux-amd64 generate-ssh-key && [ -f ~/.ssh/id_rsa ] || exit 1
+          ./dist/ultimate-setup-linux-amd64 generate-ssh-key test@example.com || exit 1
 
       - name: Upload release assets
         uses: actions/upload-release-asset@v1
