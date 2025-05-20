@@ -77,3 +77,47 @@ jobs:
           asset_content_type: application/octet-stream
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20.3
+
+      - name: Initialize Go module
+        run: |
+          go mod tidy
+
+      - name: Build binary for Linux
+        run: |
+          mkdir -p dist
+          GOOS=linux GOARCH=amd64 go build -o dist/ultimate-setup-linux-amd64
+
+      - name: Verify binary
+        run: |
+          if [ ! -f dist/ultimate-setup-linux-amd64 ]; then
+            echo "Binary not found!" && exit 1
+          fi
+          chmod +x dist/ultimate-setup-linux-amd64
+
+      - name: Test CLI features
+        run: |
+          chmod +x dist/ultimate-setup-linux-amd64
+          echo "Testing --help command"
+          ./dist/ultimate-setup-linux-amd64 --help | grep "Usage" || exit 1
+
+          echo "Testing install command"
+          ./dist/ultimate-setup-linux-amd64 install curl && which curl || exit 1
+
+          echo "Testing uninstall command"
+          ./dist/ultimate-setup-linux-amd64 uninstall curl && ! which curl || exit 1
+
+          echo "Testing SSH key generation"
+          ./dist/ultimate-setup-linux-amd64 generate-ssh-key test@example.com || exit 1
