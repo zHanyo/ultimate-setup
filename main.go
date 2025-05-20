@@ -12,16 +12,33 @@ import (
 )
 
 func main() {
-	if len(os.Args) > 1 && os.Args[1] == "--help" {
-		fmt.Println("Usage: ultimate-setup [options]")
-		fmt.Println("Options:")
-		fmt.Println("  --help                 Show this help message")
-		fmt.Println("  Configure Git          Configure Git settings")
-		fmt.Println("  Generate SSH key       Generate a new SSH key")
-		fmt.Println("  Install CLI tools      Install common CLI tools")
-		fmt.Println("  Uninstall CLI tools    Uninstall CLI tools")
-		fmt.Println("  Exit                   Exit the program")
-		os.Exit(0)
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "--help":
+			fmt.Println("Usage: ultimate-setup [options]")
+			fmt.Println("Options:")
+			fmt.Println("  --help                 Show this help message")
+			fmt.Println("  configure-git          Configure Git settings")
+			fmt.Println("  generate-ssh-key       Generate a new SSH key")
+			fmt.Println("  install-cli-tools      Install common CLI tools")
+			fmt.Println("  uninstall-cli-tools    Uninstall CLI tools")
+			os.Exit(0)
+		case "configure-git":
+			git.SetupGit()
+			os.Exit(0)
+		case "generate-ssh-key":
+			ssh.GenerateKey()
+			os.Exit(0)
+		case "install-cli-tools":
+			tools.Install()
+			os.Exit(0)
+		case "uninstall-cli-tools":
+			tools.Uninstall()
+			os.Exit(0)
+		default:
+			fmt.Printf("Unknown option: %s\n", os.Args[1])
+			os.Exit(1)
+		}
 	}
 
 	fmt.Println("🚀 Welcome to Ultimate Setup")
