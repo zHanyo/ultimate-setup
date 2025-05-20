@@ -109,3 +109,27 @@ func uninstallAnsible() {
 	}
 	fmt.Println("✔ ansible uninstalled successfully.")
 }
+
+func InstallSpecific(tool string) {
+	switch tool {
+	case "curl":
+		installCurl()
+	case "ansible":
+		installAnsible()
+	case "terraform":
+		fmt.Println("⚠️ Terraform is better used from your CI/CD pipeline. Consider avoiding local installations. It won't work anyway, so install it by yourself if really needed.")
+	default:
+		fmt.Printf("❌ Unknown tool: %s\n", tool)
+	}
+}
+
+func UninstallSpecific(tool string) {
+	switch tool {
+	case "curl":
+		uninstallCurl()
+	case "ansible":
+		uninstallAnsible()
+	default:
+		fmt.Printf("❌ Unknown tool: %s\n", tool)
+	}
+}
