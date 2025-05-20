@@ -28,18 +28,12 @@ func GenerateKey(email ...string) {
 		return
 	}
 
-	var userEmail string
-	if len(email) > 0 {
-		userEmail = email[0]
-	} else {
-		prompt := &survey.Input{
-			Message: "Enter email for SSH key:",
-		}
-		if err := survey.AskOne(prompt, &userEmail); err != nil {
-			fmt.Println("❌ Failed to get email input:", err)
-			return
-		}
+	if len(email) == 0 || email[0] == "" {
+		fmt.Println("❌ Email is required for non-interactive SSH key generation.")
+		return
 	}
+
+	userEmail := email[0]
 
 	cmd := exec.Command("ssh-keygen", "-t", "ed25519", "-C", userEmail, "-f", sshPath, "-N", "")
 	cmd.Stdout = os.Stdout
