@@ -127,6 +127,50 @@ Run the project locally:
 go run main.go
 ```
 
+## Building the Project
+
+To create a binary executable for your system, follow these steps:
+
+1. **Ensure Go is Installed**:
+   Verify that Go is installed by running:
+   ```bash
+   go version
+   ```
+
+2. **Build the Project**:
+   Run the following command in the root directory of the project:
+   ```bash
+   go build -o ultimate-setup
+   ```
+   This will generate a binary named `ultimate-setup` in the current directory.
+
+3. **Run the Binary**:
+   Execute the binary directly:
+   ```bash
+   ./ultimate-setup
+   ```
+
+### Cross-Compilation
+
+To build the binary for other platforms, use the `GOOS` and `GOARCH` environment variables:
+
+- **For Windows**:
+  ```bash
+  GOOS=windows GOARCH=amd64 go build -o ultimate-setup.exe
+  ```
+
+- **For Linux**:
+  ```bash
+  GOOS=linux GOARCH=amd64 go build -o ultimate-setup
+  ```
+
+- **For macOS**:
+  ```bash
+  GOOS=darwin GOARCH=amd64 go build -o ultimate-setup
+  ```
+
+The resulting binary can be distributed and run on the target platform without requiring Go to be installed.
+
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
