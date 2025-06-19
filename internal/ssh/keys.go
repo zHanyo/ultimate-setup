@@ -50,4 +50,12 @@ func GenerateKey(email ...string) {
 	}
 
 	fmt.Println("✅ SSH key generated at:", sshPath)
-}
+	pubKeyPath := sshPath + ".pub"
+	pubKeyBytes, err := os.ReadFile(pubKeyPath)
+	if err != nil {
+		fmt.Println("🔴 Could not read public key:", err)
+	} else {
+		fmt.Println("\n🔑 Your public key:")
+		fmt.Println(string(pubKeyBytes))
+		fmt.Println("\n💡 Copy this to your Git provider:\n   🔗 GitHub → https://github.com/settings/keys\n   🔗 GitLab → https://gitlab.com/-/profile/keys\n   🔗 Bitbucket → https://bitbucket.org/account/settings/ssh-keys/")}	
+	}
