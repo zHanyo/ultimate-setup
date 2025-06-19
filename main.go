@@ -55,8 +55,8 @@ func main() {
 
 	// Define the menu options
 	options := []string{
-		"Configure Git",
 		"Generate SSH key",
+		"Configure Git",
 		"Install CLI tools",
 		"Uninstall CLI tools",
 		"Exit",
