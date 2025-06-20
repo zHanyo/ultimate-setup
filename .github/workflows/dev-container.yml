@@ -1,0 +1,32 @@
+name: Dev Container CI
+
+on:
+  push:
+    paths:
+      - 'deven/**'
+      - '.github/workflows/dev-container.yml'
+  pull_request:
+    paths:
+      - 'deven/**'
+      - '.github/workflows/dev-container.yml'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build DevOps container
+        run: docker build -t ultimate-dev deven
+
+      - name: Test installed tools
+        run: |
+          docker run --rm ultimate-dev bash -c "\
+            git --version && \
+            python3 --version && \
+            kubectl version --client && \
+            helm version --client && \
+            terraform -version && \
+            ansible --version && \
+            ultimate-setup --help"
