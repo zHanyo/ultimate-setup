@@ -26,7 +26,7 @@ jobs:
             git --version && \
             python3 --version && \
             kubectl version --client && \
-            helm version --client && \
+            helm version --short && \
             terraform -version && \
             ansible --version && \
             ultimate-setup --help"
