@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    # Test pull requests targeting any branch
 
 jobs:
   build-and-test:
@@ -23,11 +23,13 @@ jobs:
       - name: Initialize Go module
         run: |
           go mod tidy
+        working-directory: ./gitli
 
       - name: Build binary for Linux
         run: |
-          mkdir -p dist
-          GOOS=linux GOARCH=amd64 go build -o dist/ultimate-setup-linux-amd64
+          mkdir -p ../dist
+          GOOS=linux GOARCH=amd64 go build -o ../dist/ultimate-setup-linux-amd64
+        working-directory: ./gitli
 
       - name: Verify binary
         run: |
