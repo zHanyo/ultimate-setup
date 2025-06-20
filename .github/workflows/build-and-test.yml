@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+    # Test pull requests targeting any branch
 
 jobs:
   build-and-test:
