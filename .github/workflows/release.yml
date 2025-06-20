@@ -22,18 +22,16 @@ jobs:
         with:
           go-version: 1.20.3
 
-      - name: Set working directory
-        run: |
-          cd $GITHUB_WORKSPACE
-
       - name: Initialize Go module
         run: |
           go mod tidy
+        working-directory: ./gitli
 
       - name: Build binary for Linux
         run: |
-          mkdir -p dist
-          GOOS=linux GOARCH=amd64 go build -o dist/ultimate-setup-linux-amd64
+          mkdir -p ../dist
+          GOOS=linux GOARCH=amd64 go build -o ../dist/ultimate-setup-linux-amd64
+        working-directory: ./gitli
 
       - name: Verify binary
         run: |
@@ -94,11 +92,13 @@ jobs:
       - name: Initialize Go module
         run: |
           go mod tidy
+        working-directory: ./gitli
 
       - name: Build binary for Linux
         run: |
-          mkdir -p dist
-          GOOS=linux GOARCH=amd64 go build -o dist/ultimate-setup-linux-amd64
+          mkdir -p ../dist
+          GOOS=linux GOARCH=amd64 go build -o ../dist/ultimate-setup-linux-amd64
+        working-directory: ./gitli
 
       - name: Verify binary
         run: |
