@@ -16,4 +16,11 @@ echo "  docker push $IMAGE_NAME"
 printf '\nLaunching the CLI...\n'
 # Run the CLI inside the container. Pass any additional arguments to the CLI
 
-docker run --rm -it "$IMAGE_NAME" ultimate-setup "${@:2}"
+# Detect if we are running in an interactive terminal
+if [ -t 1 ]; then
+  DOCKER_FLAGS="-it"
+else
+  DOCKER_FLAGS="-i"
+fi
+
+docker run --rm $DOCKER_FLAGS "$IMAGE_NAME" ultimate-setup "${@:2}"

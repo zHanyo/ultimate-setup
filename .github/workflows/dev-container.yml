@@ -17,8 +17,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build DevOps container
-        run: docker build -t ultimate-dev deven
+      - name: Build DevOps container with helper script
+        run: |
+          chmod +x docker-build-run.sh
+          ./docker-build-run.sh ultimate-dev --help
 
       - name: Test installed tools
         run: |
