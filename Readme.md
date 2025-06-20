@@ -34,6 +34,32 @@ Ultimate Setup is a CLI tool designed to streamline the setup process for develo
    ./ultimate-setup
    ```
 
+## Docker Quickstart
+
+If you only have **Docker Desktop** and **git** installed, you can build and run the CLI inside a container.
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd ultimate-setup
+   ```
+
+2. Build the Docker image and start the CLI:
+   ```bash
+   ./docker-build-run.sh myuser/gitli
+   ```
+   Replace `myuser/gitli` with the name you want for your image. The script builds the image from `deven/` and launches the CLI.
+
+3. (Optional) Push the image to a registry:
+   ```bash
+   docker push myuser/gitli
+   ```
+
+You can pass additional arguments after the image name to forward them to the CLI, for example:
+```bash
+./docker-build-run.sh myuser/gitli --help
+```
+
 ## Usage
 
 When you run the tool, you'll be presented with a menu of options:
