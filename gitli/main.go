@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"ultimate-setup/internal/git"
+	"ultimate-setup/internal/prompt"
 	"ultimate-setup/internal/ssh"
 	"ultimate-setup/internal/tools"
-	"ultimate-setup/internal/prompt"
 )
 
 func main() {
@@ -20,6 +20,7 @@ func main() {
 			fmt.Println("  --help                 Show this help message")
 			fmt.Println("  configure-git          Configure Git settings")
 			fmt.Println("  generate-ssh-key       Generate a new SSH key")
+			fmt.Println("  init-profile           Create DevOps config folders")
 			fmt.Println("  install [tool]         Install a specific CLI tool (e.g., curl, ansible, terraform)")
 			fmt.Println("  uninstall [tool]       Uninstall a specific CLI tool (e.g., curl, ansible, terraform)")
 			os.Exit(0)
@@ -28,6 +29,9 @@ func main() {
 			os.Exit(0)
 		case "generate-ssh-key":
 			ssh.GenerateKey()
+			os.Exit(0)
+		case "init-profile":
+			initProfile()
 			os.Exit(0)
 		case "install":
 			if len(os.Args) > 2 {

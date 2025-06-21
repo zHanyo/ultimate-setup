@@ -60,6 +60,25 @@ You can pass additional arguments after the image name to forward them to the CL
 ./docker-build-run.sh myuser/gitli --help
 ```
 
+## 🔐 DevOps Configuration Profile
+
+The `configs/` folder stores all persistent DevOps credentials used by the container:
+
+- SSH keys
+- Kubernetes credentials
+- AWS, Azure, GCP auth
+- Ansible and Vault configs
+- Terraform state and tfvars
+- Helm plugins
+
+Run the following to generate the structure:
+
+```bash
+ultimate-setup init-profile
+```
+
+> ⚠️ Never commit real credentials! Use `.keep` and `.gitignore` to keep folders tracked but secrets safe.
+
 ## Usage
 
 When you run the tool, you'll be presented with a menu of options:
