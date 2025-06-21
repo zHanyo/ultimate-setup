@@ -9,6 +9,7 @@ on:
     paths:
       - 'deven/**'
       - '.github/workflows/dev-container.yml'
+  workflow_dispatch:
 
 jobs:
   build-and-test:
