@@ -1,0 +1,44 @@
+name: Auto Tag
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Determine next tag
+        id: bump
+        run: |
+          latest=$(git tag --list 'v0.*' --sort=-v:refname | head -n 1)
+          echo "Latest tag: $latest"
+          if [ -z "$latest" ]; then
+            latest="v0.0.0"
+          fi
+          version=${latest#v}
+          IFS='.' read -r major minor patch <<< "$version"
+          patch=$((patch+1))
+          next="v${major}.${minor}.${patch}"
+          echo "next=$next" >> $GITHUB_OUTPUT
+
+      - name: Create and push tag
+        run: |
+          git tag ${{ steps.bump.outputs.next }}
+          git push origin ${{ steps.bump.outputs.next }}
