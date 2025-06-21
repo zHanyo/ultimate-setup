@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  workflows: write
 
 jobs:
   build:
@@ -17,9 +16,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_PAT }}
 
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -43,9 +39,6 @@ jobs:
             echo "Binary not found!" && exit 1
           fi
           chmod +x dist/ultimate-setup-linux-amd64
-
-
-
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
@@ -62,16 +55,12 @@ jobs:
           chmod +x dist/ultimate-setup-linux-amd64
           echo "Testing --help command"
           ./dist/ultimate-setup-linux-amd64 --help | grep "Usage" || exit 1
-
           echo "Testing install command"
           ./dist/ultimate-setup-linux-amd64 install curl && which curl || exit 1
-
           echo "Testing uninstall command"
           ./dist/ultimate-setup-linux-amd64 uninstall curl && ! which curl || exit 1
-
           echo "Testing SSH key generation"
           ./dist/ultimate-setup-linux-amd64 generate-ssh-key test@example.com || exit 1
-
       - name: Upload release assets
         uses: actions/upload-release-asset@v1
         with:
@@ -112,18 +101,14 @@ jobs:
             echo "Binary not found!" && exit 1
           fi
           chmod +x dist/ultimate-setup-linux-amd64
-
       - name: Test CLI features
         run: |
           chmod +x dist/ultimate-setup-linux-amd64
           echo "Testing --help command"
           ./dist/ultimate-setup-linux-amd64 --help | grep "Usage" || exit 1
-
           echo "Testing install command"
           ./dist/ultimate-setup-linux-amd64 install curl && which curl || exit 1
-
           echo "Testing uninstall command"
           ./dist/ultimate-setup-linux-amd64 uninstall curl && ! which curl || exit 1
-
           echo "Testing SSH key generation"
           ./dist/ultimate-setup-linux-amd64 generate-ssh-key test@example.com || exit 1
