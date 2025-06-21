@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     # Test pull requests targeting any branch
+  workflow_dispatch:
 
 jobs:
   build-and-test:
