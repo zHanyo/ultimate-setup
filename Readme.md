@@ -190,7 +190,7 @@ The resulting binary can be distributed and run on the target platform without r
 ## CI/CD Workflows
 
 ### Release Workflow
-The release workflow is triggered on every push to a tag matching the pattern `v*`. It builds the project, runs tests, and creates a GitHub release with the compiled binary.
+The release workflow is triggered when a pull request to `main` is merged. It builds the project, runs tests, and creates a GitHub release with the compiled binary.
 
 ### Build and Test Workflow
 The build-and-test workflow is triggered on every push to the `main` branch. It builds the project and runs tests to ensure code quality before merging changes into the main branch.
